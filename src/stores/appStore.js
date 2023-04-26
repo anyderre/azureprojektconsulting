@@ -1,6 +1,9 @@
 import create from 'zustand';
-import { useAuth } from '@/lib/auth';
 
-export const appStore = create((set) => ({
+const useAppStore = create((set) => ({
   user: null,
+  data: [],
+  addData: (data) => set(() => ({ data: data })),
 }));
+
+export { useAppStore };

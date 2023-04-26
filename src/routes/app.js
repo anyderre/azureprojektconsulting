@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Spinner } from '@/components/Elements';
 import { MainLayout } from '@/components/Layout';
+import LastViewedProduct from '@/features/product/components/last-viewed-product';
 
 export const App = () => {
   return (
@@ -13,6 +14,7 @@ export const App = () => {
           </div>
         }
       >
+        <LastViewedProduct />
         <Outlet />
       </Suspense>
     </MainLayout>

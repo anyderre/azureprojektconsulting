@@ -12,6 +12,8 @@ import { queryClient } from '@/lib/react-query';
 import { saveCookies } from '@/utils/saveCookies';
 import { COOKIES_TYPE } from '@/utils/enum';
 import { saveVisitorId } from '@/utils/saveVisitorId';
+import { getData } from '@/utils/data';
+import { useAppStore } from '@/stores/appStore';
 
 const ErrorFallback = () => {
   return (
@@ -28,6 +30,9 @@ const ErrorFallback = () => {
 };
 
 export const AppProvider = ({ children }) => {
+  // const data = useAppStore((state) => state.data);
+  useAppStore.setState({ data: getData() });
+
   React.useEffect(() => {
     saveCookies(COOKIES_TYPE.SESSIONID);
     saveVisitorId();

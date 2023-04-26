@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Spinner, Link } from '@/components/Elements';
-import data from '@/data/data.json';
+// import data from '@/data/data.json';
+// import { useAppStore } from '@/stores/appStore';
 import ReactPaginate from 'react-paginate';
 import { Button } from '@/components/Elements/Button';
 import Skeleton from 'react-loading-skeleton';
@@ -50,12 +51,12 @@ function Product({ currentProducts }) {
   );
 }
 
-export const ProductGrid = () => {
+export const ProductGrid = ({ data }) => {
   // / Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 12;
-
+  // const data = useAppStore((state) => state.data);
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)

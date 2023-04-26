@@ -1,6 +1,7 @@
 export const EVENT_TYPE = {
   PRODUCT_VIEW: 'View a Product',
-  PAGE_PRODUCTS_VIEWED: 'Next or Previous page of products viewed',
+  PAGE_PRODUCTS_VIEWED: 'Page Change',
+  PURCHASED: 'Purchase',
 };
 
 export const COOKIES_TYPE = {

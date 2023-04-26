@@ -1,2 +1,2 @@
 export const API_URL = process.env.REACT_APP_API_URL;
-export const JWT_SECRET = '54020';
+export const API_FUNCTION_URL = process.env.REACT_APP_API_FUNCTION_URL;

@@ -7,7 +7,7 @@ export const getProducts = () => {
 
 export const useProducts = ({ config }) => {
   return useQuery({
-    queryKey: ['comments'],
+    queryKey: ['products'],
     queryFn: () => getProducts(),
     ...config,
   });

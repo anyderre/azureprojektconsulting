@@ -12,9 +12,13 @@ export const Product = () => {
   const [product, setProduct] = React.useState();
 
   useEffect(() => {
-    const foundProduct = getProduct(productId);
-    setProduct(foundProduct);
-    sendEvent(foundProduct, EVENT_TYPE.PRODUCT_VIEW);
+    fetchProduct();
+
+    async function fetchProduct() {
+      const foundProduct = await getProduct(productId);
+      setProduct(foundProduct);
+      sendEvent(foundProduct, EVENT_TYPE.PRODUCT_VIEW);
+    }
   }, [productId]);
 
   if (!product) return null;
