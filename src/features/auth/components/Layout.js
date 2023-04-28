@@ -3,6 +3,7 @@ import React from 'react';
 import logo from '@/assets/logo.svg';
 import { Link } from '@/components/Elements';
 import { Head } from '@/components/Head';
+import { Image } from '@/components/Elements/Image';
 
 export const Layout = ({ children, title }) => {
   return (
@@ -12,7 +13,7 @@ export const Layout = ({ children, title }) => {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="flex justify-center">
             <Link className="flex items-center text-dark" to="/">
-              <img className="h-24 w-24" src={logo} alt="Workflow" />
+              <Image src={logo} alt={'Workflow'} className="h-24 w-24" />
             </Link>
           </div>
 

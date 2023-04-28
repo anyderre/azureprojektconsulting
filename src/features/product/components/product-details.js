@@ -3,12 +3,14 @@ import { Button } from '@/components/Elements/Button';
 import { ArrowCircleLeftIcon, CurrencyDollarIcon } from '@heroicons/react/outline';
 import { Link } from '@/components/Elements';
 import { useNavigate } from 'react-router-dom';
+import { Image } from '@/components/Elements/Image';
 
 export const ProductDetails = ({ product }) => {
   const navigate = useNavigate();
   return (
     <div className=" grid grid-cols-2">
-      <img src={product.images} alt={product.title} className="object-cover rounded-t-lg" />
+      <Image src={product.images} alt={product.title} className="object-cover rounded-t-lg" />
+
       <div className="p-4 grid grid-col">
         <span>
           <h2 className="text-lg font-bold">

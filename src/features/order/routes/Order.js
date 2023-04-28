@@ -26,7 +26,11 @@ export const Order = () => {
     if (!productId) {
       navigate('/public/products');
     } else {
-      setProduct(() => getProduct(productId));
+      async function getProductForOrder() {
+        const result = await getProduct(productId);
+        setProduct(() => result);
+      }
+      getProductForOrder();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, user]);

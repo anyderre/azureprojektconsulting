@@ -2,6 +2,7 @@ import Axios from 'axios';
 import { API_URL } from '@/config';
 import { useNotificationStore } from '../stores/notifications';
 import storage from '@/utils/storage';
+import axiosRetry from 'axios-retry';
 
 function authRequestInterceptor(config) {
   const token = storage.getToken();
@@ -16,6 +17,8 @@ function authRequestInterceptor(config) {
 export const axios = Axios.create({
   baseURL: API_URL,
 });
+
+axiosRetry(axios, { retries: 3 });
 
 axios.interceptors.request.use(authRequestInterceptor);
 axios.interceptors.response.use(

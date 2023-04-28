@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Spinner, Link } from '@/components/Elements';
-// import data from '@/data/data.json';
-// import { useAppStore } from '@/stores/appStore';
+import { Link } from '@/components/Elements';
 import ReactPaginate from 'react-paginate';
 import { Button } from '@/components/Elements/Button';
 import Skeleton from 'react-loading-skeleton';
 import { EyeIcon, ArrowCircleLeftIcon, ArrowCircleRightIcon } from '@heroicons/react/outline';
 import { sendEvent } from '@/utils/sendEvent';
 import { EVENT_TYPE } from '@/utils/enum';
+import { Image } from '@/components/Elements/Image';
 
 function Product({ currentProducts }) {
   return (
@@ -21,11 +20,12 @@ function Product({ currentProducts }) {
                   key={product.uniq_id}
                   className="bg-white rounded-lg shadow-md p-2 grid grid-flow-row"
                 >
-                  <img
+                  <Image
                     src={product.images}
                     alt={product.title || `Product ${index}`}
                     className="w-full h-64 object-cover rounded-t-lg"
                   />
+
                   <div className="p-4">
                     <h2 className="text-lg font-bold">{product.title}</h2>
                     <p className="text-gray-900 font-bold mt-2">
@@ -67,7 +67,6 @@ export const ProductGrid = ({ data }) => {
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % data.length;
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
     setItemOffset(newOffset);
     sendEvent(null, EVENT_TYPE.PAGE_PRODUCTS_VIEWED);
   };

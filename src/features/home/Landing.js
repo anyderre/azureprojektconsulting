@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router';
+import { Image } from '@/components/Elements/Image';
 
 import logo from '@/assets/logo.svg';
 import { Button } from '@/components/Elements';
@@ -28,7 +29,8 @@ export const Landing = () => {
             <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
               <span className="block">Azure Project Consulting</span>
             </h2>
-            <img src={logo} alt="react" />
+            <Image src={logo} alt={'react'} />
+
             <p>Register User Action On Website and make suggestion based on past action</p>
             <div className="mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">

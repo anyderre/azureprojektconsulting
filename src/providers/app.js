@@ -30,7 +30,6 @@ const ErrorFallback = () => {
 };
 
 export const AppProvider = ({ children }) => {
-  // const data = useAppStore((state) => state.data);
   useAppStore.setState({ data: getData() });
 
   React.useEffect(() => {
