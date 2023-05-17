@@ -14,6 +14,7 @@ import { COOKIES_TYPE } from '@/utils/enum';
 import { saveVisitorId } from '@/utils/saveVisitorId';
 import { getData } from '@/utils/data';
 import { useAppStore } from '@/stores/appStore';
+import storage from '@/utils/storage';
 
 const ErrorFallback = () => {
   return (
@@ -35,6 +36,7 @@ export const AppProvider = ({ children }) => {
   React.useEffect(() => {
     saveCookies(COOKIES_TYPE.SESSIONID);
     saveVisitorId();
+    storage.clearPage();
   }, []);
 
   return (

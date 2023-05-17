@@ -15,11 +15,20 @@ const storage = {
       ? jwtDecode(window.localStorage.getItem(`${storagePrefix}token`))['user']
       : null;
   },
+  getPage: () => {
+    return window.localStorage.getItem(`${storagePrefix}page`) ?? 0;
+  },
   setToken: (token) => {
     window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
   },
+  setPage: (page) => {
+    window.localStorage.setItem(`${storagePrefix}page`, page);
+  },
   clearToken: () => {
     window.localStorage.removeItem(`${storagePrefix}token`);
+  },
+  clearPage: () => {
+    window.localStorage.removeItem(`${storagePrefix}page`);
   },
 };
 

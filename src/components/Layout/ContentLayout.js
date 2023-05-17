@@ -1,15 +1,19 @@
-import { Head } from '@/components/Head'
+import { Head } from '@/components/Head';
 
-export const ContentLayout = ({ children, title }) => {
+export const ContentLayout = ({
+  children,
+  title,
+  className = 'max-w-7xl mx-auto px-4 sm:px-6 md:px-8',
+}) => {
   return (
     <>
       <Head title={title} />
-      <div className='py-6'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8'>
-          <h1 className='text-2xl font-semibold text-gray-900'>{title}</h1>
+      <div className="py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+          <h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
         </div>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 md:px-8'>{children}</div>
+        <div className={className}>{children}</div>
       </div>
     </>
-  )
-}
+  );
+};

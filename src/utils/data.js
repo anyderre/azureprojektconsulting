@@ -5,7 +5,7 @@ let dataCache = [];
 export const getData = async () => {
   if (!dataCache || dataCache.length <= 0) {
     const response = await axios.get(
-      'https://shophsalbsig.blob.core.windows.net/storage/data.json'
+      'https://shophsalbsig.blob.core.windows.net/storage/updated_data.json'
     );
     dataCache = response.data;
   }

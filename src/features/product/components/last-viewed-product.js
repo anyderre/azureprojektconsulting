@@ -5,6 +5,7 @@ import { EVENT_TYPE, COOKIES_TYPE } from '@/utils/enum';
 import { Carousel } from '@/components/Elements/Carousel';
 import { Image } from '@/components/Elements/Image';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from '@/components/Elements';
 
 const LastViewedProduct = () => {
   useEffect(() => {}, []);
@@ -15,13 +16,14 @@ const LastViewedProduct = () => {
     visitorId: Cookies.get(COOKIES_TYPE.VISITORID),
     sessionId: Cookies.get(COOKIES_TYPE.SESSIONID),
     eventType: EVENT_TYPE.PRODUCT_VIEW,
-    // visitorId: 'visitor1',
-    // sessionId: 'session456',
-    // eventType: 'view',
   });
 
   if (lastProductViewedQuery.isLoading) {
-    return <div className="w-full h-48 flex justify-center items-center"></div>;
+    return (
+      <div className="w-full h-48 flex justify-center items-center">
+        <Spinner size="sm" />
+      </div>
+    );
   }
 
   if (lastProductViewedQuery.isError || lastProductViewedQuery.error) return null;
@@ -33,7 +35,7 @@ const LastViewedProduct = () => {
   };
   return (
     <div className="w-full grid items-center justify-center">
-      <Carousel>
+      <Carousel type={'SCROLLING'}>
         {lastProductViewedQuery.data &&
           lastProductViewedQuery.data.data &&
           lastProductViewedQuery.data.data.map((item) => (
@@ -44,8 +46,7 @@ const LastViewedProduct = () => {
               title="Last Product Seen"
             >
               <Image src={item.images} alt={item.title} className="h-8 w-8 rounded-full mr-2" />
-
-              <span class="text-sm">{item.title}</span>
+              <span className="text-sm">{item.title}</span>
             </div>
           ))}
       </Carousel>
