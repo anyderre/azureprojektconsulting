@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import abbreviate from '@/utils/abbreviation-thousandsand';
 import Cookies from 'js-cookie';
 import { EVENT_TYPE, COOKIES_TYPE } from '@/utils/enum';
-// import { Carousel } from '@/components/Elements/Carousel/Carousel';
 import { useNavigate } from 'react-router-dom';
 import { RSlider } from '@/components/Elements/Slider';
 
@@ -36,7 +35,6 @@ export const BestSellerProductPerCategoryView = ({ category }) => {
       const productsFound = Array.from(
         new Set(productListAmountOfSales.filter((item) => item.category === category))
       );
-      console.log(productsFound);
       setProducts(() => productsFound);
     }
   }, [category, productListAmountOfSales]);
@@ -76,7 +74,7 @@ export const BestSellerProductPerCategoryView = ({ category }) => {
               <div className="absolute top-0 right-0 rounded-lg drop-shadow-xl">
                 <div>
                   <span className="bg-sky-500 flex flex-col text-lg text-center font-serif text-white rounded-lg p-1 mt-2">
-                    ${item.order_total.toFixed(2)}
+                    ${abbreviate(item.order_total.toFixed(2))}
                     <span className="italic text-xs">Amt. sold</span>
                   </span>
                   <span className="bg-green-500 flex flex-col text-center text-lg font-serif text-white rounded-lg p-1 mt-2">

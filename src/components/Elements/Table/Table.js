@@ -32,10 +32,14 @@ export const Table = ({ data, columns }) => {
               <tbody>
                 {data.map((entry, entryIndex) => (
                   <tr key={entry?.id || entryIndex} className="odd:bg-white even:bg-gray-100">
-                    {columns.map(({ Cell, field, title }, columnIndex) => (
+                    {columns.map(({ Cell, field, title, className }, columnIndex) => (
                       <td
                         key={title + columnIndex}
-                        className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                        className={
+                          className
+                            ? className
+                            : `px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap`
+                        }
                       >
                         {Cell ? <Cell entry={entry} /> : entry[field]}
                       </td>

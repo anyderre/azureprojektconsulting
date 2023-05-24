@@ -4,8 +4,9 @@ import { loginWithEmailAndPassword, registerWithEmailAndPassword } from '@/featu
 import storage from '@/utils/storage';
 
 async function handleUserResponse(data) {
-  const { token, user } = data;
+  const { token } = data;
   storage.setToken(token);
+  const user = await loadUser();
   return user;
 }
 
@@ -44,6 +45,7 @@ const authConfig = {
   registerFn,
   logoutFn,
   isLoggedIn,
+  getAccessToken: storage.getToken(),
   LoaderComponent() {
     return (
       <div className="w-screen h-screen flex justify-center items-center">

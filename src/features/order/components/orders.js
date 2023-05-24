@@ -34,8 +34,13 @@ export const OrdersList = () => {
         {
           title: 'Product',
           field: 'productId',
+          className: 'px-6 py-4 text-sm font-medium text-gray-900',
           Cell({ entry: { productId, productName } }) {
-            return <Link to={`/public/products/${productId}`}>{productName}</Link>;
+            return (
+              <Link className="break-all" to={`/public/products/${productId}`}>
+                {productName}
+              </Link>
+            );
           },
         },
         {

@@ -6,7 +6,7 @@ import { ArchiveIcon } from '@heroicons/react/outline';
 export const Orders = () => {
   return (
     <ContentLayout title="Orders">
-      <div className="mt-4 bg-white rounded-lg shadow-md p-2 grid grid-rows-2 grid-flow-row overflow-auto">
+      <div className="mt-4 bg-white rounded-lg shadow-md p-2 grid grid-rows grid-flow-row gap-2">
         <OrdersList />
         <div className="place-self-end">
           <Link className="" to={`/public/products`}>

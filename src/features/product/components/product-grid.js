@@ -85,8 +85,9 @@ function Product({ currentProducts }) {
   );
 }
 
-export const ProductGrid = ({ data, category }) => {
+export const ProductGrid = ({ data, initialCategory }) => {
   const [categories, setCategories] = useState();
+  const [category, setCategory] = useState(initialCategory);
   const [selected, setSelected] = useState();
   const [subCategories, setSubCategories] = useState();
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -119,7 +120,6 @@ export const ProductGrid = ({ data, category }) => {
     storage.setPage(event.selected);
     setSelected(event.selected);
     setItemOffset(newOffset);
-    console.log(event.selected);
     sendEvent(null, EVENT_TYPE.PAGE_PRODUCTS_VIEWED);
   };
 
@@ -141,6 +141,7 @@ export const ProductGrid = ({ data, category }) => {
     const subCategoriesToFilter = Array.from(new Set(arraySubCategories));
 
     if (!category && categoriesToFilter.length <= 0 && subCategoriesToFilter.length <= 0) {
+      // refreshSelectedCategories();
       setDataFiltered(data);
       return;
     }
@@ -157,11 +158,26 @@ export const ProductGrid = ({ data, category }) => {
     const filtered = [...filteredCategories, ...filteredSubCatgories];
 
     setDataFiltered(Array.from(new Set(filtered.length > 0 ? filtered : data)));
+
+    refreshSelectedCategories();
   }, [category, data, selectedCategories, selectedSubCategories]);
 
   const orderOptions = (values) => {
     return values.filter((v) => v.isFixed).concat(values.filter((v) => !v.isFixed));
   };
+
+  useEffect(() => {
+    setCategory(initialCategory);
+  }, [initialCategory]);
+
+  useEffect(() => {
+    if (storage.getCategories()) {
+      const { category: cat, selCate, selSubCate } = JSON.parse(storage.getCategories());
+      setCategory(cat);
+      setSelectedCategories(selCate);
+      setSelectedSubCategories(selSubCate);
+    }
+  }, []);
 
   const handleChangeCategories = (newValue, actionMeta) => {
     // eslint-disable-next-line default-case
@@ -177,8 +193,19 @@ export const ProductGrid = ({ data, category }) => {
         break;
     }
 
-    setSelectedCategories(orderOptions(newValue));
+    setSelectedCategories(() => orderOptions(newValue));
+    refreshSelectedCategories(orderOptions(newValue), selectedSubCategories);
   };
+
+  function refreshSelectedCategories(newCategories = null, newSubCategories = null) {
+    storage.setCategories(
+      JSON.stringify({
+        category,
+        selCate: newCategories ?? selectedCategories,
+        selSubCate: newSubCategories ?? selectedSubCategories,
+      })
+    );
+  }
   const handleChangeSubCategories = (newValue, actionMeta) => {
     // eslint-disable-next-line default-case
     switch (actionMeta.action) {
@@ -193,7 +220,10 @@ export const ProductGrid = ({ data, category }) => {
         break;
     }
 
-    setSelectedSubCategories(orderOptions(newValue));
+    console.log('Herre to see if removed or poped');
+
+    setSelectedSubCategories(() => orderOptions(newValue));
+    refreshSelectedCategories(selectedCategories, orderOptions(newValue));
   };
 
   const Input = (inputProps) => <components.Input {...inputProps} autoComplete={'nope'} />;

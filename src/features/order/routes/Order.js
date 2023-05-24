@@ -11,6 +11,8 @@ import { useNotificationStore } from '@/stores/notifications';
 import { useSaveOrder } from '../api/saveOrder';
 import Cookies from 'js-cookie';
 import { COOKIES_TYPE } from '@/utils/enum';
+import { sendEvent } from '@/utils/sendEvent';
+import { EVENT_TYPE } from '@/utils/enum';
 
 export const Order = () => {
   const saveOrderMutation = useSaveOrder();
@@ -38,7 +40,6 @@ export const Order = () => {
   useEffect(() => {
     setTotal(product?.price ?? 0);
   }, [product]);
-
   if (!user) {
     navigate(`/auth/login`);
   }
@@ -96,6 +97,7 @@ export const Order = () => {
     };
 
     await saveOrderMutation.mutateAsync({ data: order });
+    sendEvent(productAttributeToSave, EVENT_TYPE.ORDER);
   };
 
   function validateOrder() {

@@ -67,7 +67,7 @@ export const Products = () => {
           <div className={`self-start col-span-3 flex items-center justify-center `}>
             <div className="max-w-full w-full">
               <div className="mt-4">
-                <ProductGrid data={data} category={category} />
+                <ProductGrid data={data} initialCategory={category} />
               </div>
             </div>
           </div>

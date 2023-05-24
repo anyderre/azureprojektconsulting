@@ -18,11 +18,17 @@ const storage = {
   getPage: () => {
     return window.localStorage.getItem(`${storagePrefix}page`) ?? 0;
   },
+  getCategories: () => {
+    return window.localStorage.getItem(`${storagePrefix}categories`) ?? {};
+  },
   setToken: (token) => {
     window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
   },
   setPage: (page) => {
     window.localStorage.setItem(`${storagePrefix}page`, page);
+  },
+  setCategories: (categories) => {
+    window.localStorage.setItem(`${storagePrefix}categories`, categories);
   },
   clearToken: () => {
     window.localStorage.removeItem(`${storagePrefix}token`);

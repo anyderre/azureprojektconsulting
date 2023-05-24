@@ -5,7 +5,7 @@ import { App } from './app';
 const { ProductsRoutes } = lazyImport(() => import('@/features/product/routes'), 'ProductsRoutes');
 const { AuthRoutes } = lazyImport(() => import('@/features/auth'), 'AuthRoutes');
 
-export const Routes = (user) => [
+export const Routes = () => [
   {
     path: '/auth/*',
     element: <AuthRoutes />,

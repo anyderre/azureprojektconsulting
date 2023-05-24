@@ -12,15 +12,30 @@ export const sendEvent = async (product = null, eventType = '') => {
   const visitorId = Cookies.get(COOKIES_TYPE.VISITORID);
   let eventToSend = { sessionId, eventType, visitorId, dateTime: new Date() };
 
-  if (EVENT_TYPE.PRODUCT_VIEW === eventType) {
+  if (eventType === EVENT_TYPE.ORDER || eventType === EVENT_TYPE.PRODUCT_VIEW) {
     if (!product) return;
 
-    const pickedProdcutAttributes = (({ uniq_id: productId, title, category, sub_cateory }) => ({
-      productId,
-      title,
-      category,
-      sub_cateory,
-    }))(product);
+    let pickedProdcutAttributes = {};
+    if (eventType === EVENT_TYPE.ORDER) {
+      pickedProdcutAttributes = (({
+        productId,
+        productName: title,
+        productCategory: category,
+        productSubCategory: sub_cateory,
+      }) => ({
+        productId,
+        title,
+        category,
+        sub_cateory,
+      }))(product);
+    } else if (eventType === EVENT_TYPE.PRODUCT_VIEW) {
+      pickedProdcutAttributes = (({ uniq_id: productId, title, category, sub_cateory }) => ({
+        productId,
+        title,
+        category,
+        sub_cateory,
+      }))(product);
+    }
 
     eventToSend = { ...eventToSend, ...pickedProdcutAttributes };
   }
