@@ -59,7 +59,7 @@ const TopProductViewed = ({ handleDataLoaded, handleCategoryClick, initialCatego
   if (!topProductCategorySoldQuery.data) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-2 grid grid-flow-row">
+    <div className="w-full bg-white rounded-lg shadow-md p-2 grid grid-flow-row">
       <div className="flex gap-1">
         <h2 className="font-bold">Top categories sold of the product you interested in</h2>
         <CurrencyDollarIcon className="ml-1 w-6 h-6" />

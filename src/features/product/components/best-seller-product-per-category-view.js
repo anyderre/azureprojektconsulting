@@ -7,7 +7,12 @@ import abbreviate from '@/utils/abbreviation-thousandsand';
 import Cookies from 'js-cookie';
 import { EVENT_TYPE, COOKIES_TYPE } from '@/utils/enum';
 import { useNavigate } from 'react-router-dom';
-import { RSlider } from '@/components/Elements/Slider';
+import { swiperSettings } from '@/utils/swiper-config';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 export const BestSellerProductPerCategoryView = ({ category }) => {
   const [productListAmountOfSales, setProductListAmountOfSales] = useState();
@@ -59,39 +64,53 @@ export const BestSellerProductPerCategoryView = ({ category }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-2 h-96">
+    <div className="swiper-container w-full xs:w-1/2 mx-auto  bg-white rounded-lg shadow-md p-2">
       <h2 className="font-bold">Best seller in {category}</h2>
-      <RSlider className="w-full p-4">
+      <Swiper
+        navigation={true}
+        modules={[Navigation]}
+        {...swiperSettings}
+        className="mySwiper mt-4 mr-2"
+      >
         {products.length > 0 &&
           products.map((item) => (
-            <div
-              onClick={() => handleProductView(item.product_id)}
-              key={item.product_id}
-              title={item.product_name}
-              className="relative bg-white drop-shadow rounded-lg h-full shadow-md cursor-pointer object-fit"
-            >
-              <Image className="m-auto h-60 w-60" src={item.images} alt={item.product_name} />
-              <div className="absolute top-0 right-0 rounded-lg drop-shadow-xl">
-                <div>
-                  <span className="bg-sky-500 flex flex-col text-lg text-center font-serif text-white rounded-lg p-1 mt-2">
-                    ${abbreviate(item.order_total.toFixed(2))}
-                    <span className="italic text-xs">Amt. sold</span>
-                  </span>
-                  <span className="bg-green-500 flex flex-col text-center text-lg font-serif text-white rounded-lg p-1 mt-2">
-                    {item.count}
-                    <span className="italic text-xs">Times sold</span>
+            <SwiperSlide className="overflow-x-hidden" key={item.productId}>
+              <div
+                onClick={() => handleProductView(item.product_id)}
+                key={item.product_id}
+                title={item.product_name}
+                className="relative bg-white drop-shadow rounded-lg w-full h-full shadow-md cursor-pointer"
+              >
+                <Image
+                  className="m-auto h-60 w-60 object-scale-down"
+                  src={item.images}
+                  alt={item.product_name}
+                />
+                <div className="absolute top-0 right-0 rounded-lg drop-shadow-xl">
+                  <div>
+                    <span className="bg-sky-500 flex flex-col text-lg text-center font-serif text-white rounded-lg p-1 mt-2">
+                      ${abbreviate(item.order_total.toFixed(2))}
+                      <span className="italic text-xs">Amt. sold</span>
+                    </span>
+                    <span className="bg-green-500 flex flex-col text-center text-lg font-serif text-white rounded-lg p-1 mt-2">
+                      {item.count}
+                      <span className="italic text-xs">Times sold</span>
+                    </span>
+                  </div>
+                </div>
+                <div className="absolute bottom-[60%] right-1 bg-green-500 rounded-lg drop-shadow-xl"></div>
+                <div className="bg-gray-400 object-scale-down rounded-lg p-2 text-center">
+                  <span className="text-md text-center text-white font-medium">
+                    {item.product_name}
                   </span>
                 </div>
               </div>
-              <div className="absolute bottom-[60%] right-1 bg-green-500 rounded-lg drop-shadow-xl"></div>
-              <div className="bg-gray-400 rounded-lg p-2 text-center">
-                <span className="text-md text-center text-white font-medium">
-                  {item.product_name}
-                </span>
-              </div>
-            </div>
+            </SwiperSlide>
           ))}
-      </RSlider>
+      </Swiper>
     </div>
+    // <div className="max-w-full w-full rounded-lg shadow-md p-2 h-96">
+
+    // </div>
   );
 };

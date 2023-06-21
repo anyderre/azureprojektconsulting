@@ -1,11 +1,12 @@
 import { useQuery } from 'react-query';
 import { handleError } from '@/lib/handle-error';
 import { axiosInstance } from '@/lib/axios-instance';
+import { EVENT_TYPE } from '@/utils/enum';
 
 export const getTopViewedFromLastVisited = async (
   visitorId,
   sessionId,
-  eventType = 'View Product'
+  eventType = EVENT_TYPE.PRODUCT_VIEW
 ) => {
   const params = {
     visitor_id: visitorId,

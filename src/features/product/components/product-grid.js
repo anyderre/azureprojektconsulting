@@ -172,10 +172,14 @@ export const ProductGrid = ({ data, initialCategory }) => {
 
   useEffect(() => {
     if (storage.getCategories()) {
-      const { category: cat, selCate, selSubCate } = JSON.parse(storage.getCategories());
-      setCategory(cat);
-      setSelectedCategories(selCate);
-      setSelectedSubCategories(selSubCate);
+      try {
+        const { category: cat, selCate, selSubCate } = JSON.parse(storage.getCategories());
+        setCategory(cat);
+        setSelectedCategories(selCate);
+        setSelectedSubCategories(selSubCate);
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
     }
   }, []);
 
@@ -220,14 +224,17 @@ export const ProductGrid = ({ data, initialCategory }) => {
         break;
     }
 
-    console.log('Herre to see if removed or poped');
-
     setSelectedSubCategories(() => orderOptions(newValue));
     refreshSelectedCategories(selectedCategories, orderOptions(newValue));
   };
 
   const Input = (inputProps) => <components.Input {...inputProps} autoComplete={'nope'} />;
-
+  const customStyles = {
+    ///.....
+    menuPortal: (provided) => ({ ...provided, zIndex: 999 }),
+    menu: (provided) => ({ ...provided, zIndex: 999 }),
+    ///.....
+  };
   return (
     <>
       <div className="grid grid-cols-2 grid-rows-auto gap-2">
@@ -236,7 +243,7 @@ export const ProductGrid = ({ data, initialCategory }) => {
           components={{ Input }}
           inputProps={{ autoComplete: 'off', autoCorrect: 'off', spellCheck: 'off' }}
           closeMenuOnSelect={false}
-          className="basic-single mb-2 w-full"
+          className="basic-single mb-2 w-full z-[4]"
           classNamePrefix="select"
           isMulti
           onChange={handleChangeCategories}
@@ -245,12 +252,19 @@ export const ProductGrid = ({ data, initialCategory }) => {
           isSearchable={false}
           name="Categories"
           options={categories}
+          // menuPortalTarget={document.body}
+          // menuPosition={'fixed'}
+          // styles={customStyles}
+          menuPosition={'fixed'}
+          // menuPortalTarget={document.body}
+          menuPortalTarget={document.querySelector('body')}
+          styles={{ menuPortal: (base) => ({ ...base, zIndex: 4 }) }}
         />
         <Select
           inputProps={{ autoComplete: 'off', autoCorrect: 'off', spellCheck: 'off' }}
           components={{ Input }}
           closeMenuOnSelect={false}
-          className="basic-single mb-2 w-full"
+          className="basic-single mb-2 w-full z-[4]"
           classNamePrefix="select"
           isMulti
           onChange={handleChangeSubCategories}
@@ -259,6 +273,13 @@ export const ProductGrid = ({ data, initialCategory }) => {
           isSearchable={false}
           name="Sub Categories"
           options={subCategories}
+          // menuPortalTarget={document.body}
+          // menuPosition={'fixed'}
+          // styles={customStyles}
+          menuPortalTarget={document.querySelector('body')}
+          // menuPortalTarget={document.body}
+          styles={{ menuPortal: (base) => ({ ...base, zIndex: 4 }) }}
+          menuPosition={'fixed'}
         />
       </div>
       <Product currentProducts={currentItems} />

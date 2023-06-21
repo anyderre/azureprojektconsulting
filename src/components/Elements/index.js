@@ -5,3 +5,4 @@ export * from './Table';
 export * from './Image';
 export * from './Skeleton';
 export * from './Slider';
+export * from './Modal';

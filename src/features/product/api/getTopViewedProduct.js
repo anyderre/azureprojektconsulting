@@ -12,6 +12,6 @@ export const useTopViewedProduct = ({ config } = {}, event_type) => {
   return useQuery({
     ...config,
     queryKey: ['topViewedProduct'],
-    queryFn: () => getTopViewedProduct(),
+    queryFn: () => getTopViewedProduct(event_type),
   });
 };

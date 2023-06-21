@@ -58,7 +58,7 @@ const TopProductViewed = ({ handleDataLoaded, handleCategoryClick, initialCatego
   if (!topProductCategoryViewedQuery.data) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-2 grid grid-flow-row">
+    <div className="w-full object-scale-down bg-white rounded-lg shadow-md p-2 grid grid-flow-row">
       <div className="flex gap-1">
         <h2 className="font-bold">Top categories viewed of the products you interested in</h2>
         <EyeIcon className="ml-1 w-6 h-6" />
